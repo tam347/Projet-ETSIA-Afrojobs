@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AfroJobs - Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #8B4513;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid #e9ecef;
+            padding: 0 24px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: #8B4513;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-item {
+            color: #6b7280;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 0;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .nav-item.active {
+            color: #8B4513;
+            border-bottom-color: #6366f1;
+        }
+
+        .nav-item:hover {
+            color: #8B4513;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-input {
+            width: 300px;
+            padding: 8px 16px 8px 40px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            background: #f9fafb;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: #8B4513;
+            background: white;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+        }
+
+        .notification-icon {
+            width: 20px;
+            height: 20px;
+            color: #6b7280;
+            cursor: pointer;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #e5e7eb;
+            cursor: pointer;
+        }
+
+        /* Main Layout */
+        .main-container {
+            display: flex;
+            min-height: calc(100vh - 70px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background: white;
+            border-right: 1px solid #e9ecef;
+            padding: 24px 0;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-item {
+            margin-bottom: 4px;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 24px;
+            color: #6b7280;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .sidebar-link:hover {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .sidebar-link.active {
+            background: #8B4513;
+            color: white;
+        }
+
+        .sidebar-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .sidebar-divider {
+            height: 1px;
+            background: #e5e7eb;
+            margin: 24px 0;
+        }
+
+        .sidebar-section {
+            padding: 0 24px;
+            margin-bottom: 16px;
+        }
+
+        .sidebar-section-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 24px;
+            color: #6b7280;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+            margin-top: auto;
+        }
+
+        .logout-btn:hover {
+            background: #fef2f2;
+            color: #8B4513;
+        }
+
+        /* Content Area */
+        .content {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 80px;
+        }
+
+        /* Login Form */
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .welcome-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .welcome-subtitle {
+            color: #6b7280;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus {
+            border-color: #8B4513;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checkbox {
+            width: 16px;
+            height: 16px;
+        }
+
+        .checkbox-label {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .forgot-password {
+            color: #ec4899;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: #8B4513;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 16px;
+        }
+
+        .login-btn:hover {
+            background: #8B4513;
+        }
+
+        .divider {
+            text-align: center;
+            color: #9ca3af;
+            margin: 24px 0;
+            font-size: 14px;
+        }
+
+        .google-btn {
+            width: 100%;
+            padding: 12px;
+            background: white;
+            color: #374151;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .google-btn:hover {
+            background: #f9fafb;
+        }
+
+        .signup-link {
+            text-align: center;
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .signup-link a {
+            color: #ec4899;
+            text-decoration: none;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Welcome Card */
+        .welcome-card {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .welcome-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            background: linear-gradient(135deg, #8B4513 70%, #8B4513 30%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+        }
+
+        .welcome-card-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #8B4513;
+            margin-bottom: 24px;
+        }
+
+        .email-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #9ca3af;
+        }
+
+        .continue-btn {
+            width: 100%;
+            padding: 12px;
+            background: #8B4513;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 24px;
+        }
+
+        .continue-btn:hover {
+            background: #8B4513;
+        }
+
+        .social-options {
+            margin-bottom: 24px;
+        }
+
+        .social-options-title {
+            color: #9ca3af;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .social-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .social-btn {
+            padding: 10px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            background: white;
+            color: #374151;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .social-btn:hover {
+            background: #f9fafb;
+        }
+
+        .back-link {
+            color: #8B4513;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .terms-text {
+            font-size: 12px;
+            color: #9ca3af;
+            line-height: 1.5;
+        }
+
+        .terms-text a {
+            color: #8B4513;
+            text-decoration: none;
+        }
+
+        .terms-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .footer {
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .footer-logo-icon {
+            width: 24px;
+            height: 24px;
+            background: #8B4513;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+        }
+
+        .footer-text {
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        .footer-right {
+            display: flex;
+            gap: 16px;
+        }
+
+        .footer-social {
+            width: 20px;
+            height: 20px;
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-social:hover {
+            color: #8B4513;
+        }
+
+        .yesily-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .yesily-logo {
+            width: 20px;
+            height: 20px;
+            background: #8B4513;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .content {
+                flex-direction: column;
+                gap: 40px;
+                align-items: center;
+            }
+            
+            .search-input {
+                width: 200px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #e9ecef;
+            }
+            
+            .content {
+                padding: 20px;
+                gap: 20px;
+            }
+            
+            .login-container,
+            .welcome-card {
+                padding: 24px;
+            }
+            
+            .header {
+                padding: 0 16px;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .search-input {
+                width: 150px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            .social-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-right {
+                gap: 8px;
+            }
+            
+            .search-box {
+                display: none;
+            }
+            
+            .footer {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon"></div>
+            <span>AfroJobs</span>
+        </div>
+        <nav class="nav-menu">
+            <a href="#" class="nav-item active">Dashboard</a>
+            <a href="#" class="nav-item">Job Postings</a>
+            <a href="#" class="nav-item">Candidates</a>
+            <a href="#" class="nav-item">Settings</a>
+        </nav>
+        <div class="header-right">
+            <div class="search-box">
+                <span class="search-icon"></span>
+                <input type="text" class="search-input" placeholder="Search jobs, candidates, or settings...">
+            </div>
+            <span class="notification-icon"></span>
+            <span class="notification-icon"></span>
+            <div class="user-avatar"></div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <div class="sidebar-item">
+                    <a href="#" class="sidebar-link active">
+                        <span class="sidebar-icon"></span>
+                        Dashboard
+                    </a>
+                </div>
+                <div class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <span class="sidebar-icon"></span>
+                        Job Postings
+                    </a>
+                </div>
+                <div class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <span class="sidebar-icon"></span>
+                        Candidates
+                    </a>
+                </div>
+                <div class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <span class="sidebar-icon"></span>
+                        Analytics
+                    </a>
+                </div>
+                <div class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <span class="sidebar-icon"></span>
+                        Settings
+                    </a>
+                </div>
+            </nav>
+            
+            <div class="sidebar-divider"></div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Recruiter</div>
+                <div class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <span class="sidebar-icon"></span>
+                        Recruiter
+                    </a>
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Candidate</div>
+                <div class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <span class="sidebar-icon"></span>
+                        Candidate
+                    </a>
+                </div>
+            </div>
+            
+            <div style="margin-top: auto;">
+                <a href="#" class="logout-btn">
+                    <span class="sidebar-icon"></span>
+                    Log Out
+                </a>
+            </div>
+        </aside>
+
+        <!-- Content -->
+        <main class="content">
+            <!-- Login Form -->
+            <div class="login-container">
+                <h1 class="welcome-title">Welcome</h1>
+                <p class="welcome-subtitle">Log in to your account to continue</p>
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-input" placeholder="your.email@example.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-input" placeholder="••••••••" required>
+                    </div>
+                    
+                    <div class="form-options">
+                        <div class="checkbox-group">
+                            <input type="checkbox" class="checkbox" id="remember">
+                            <label for="remember" class="checkbox-label">Remember me</label>
+                        </div>
+                        <a href="#" class="forgot-password">Forgot Password?</a>
+                    </div>
+                    
+                    <button type="submit" class="login-btn">Login</button>
+                </form>
+                
+                <div class="divider">OR</div>
+                
+                <button class="google-btn">
+                    <span></span>
+                    Login with Google
+                </button>
+                
+                <div class="signup-link">
+                    Don't have an account? <a href="#">Sign Up</a>
+                </div>
+            </div>
+
+            <!-- Welcome Card -->
+            <div class="welcome-card">
+                <div class="welcome-icon">△</div>
+                <h2 class="welcome-card-title">Welcome</h2>
+                
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="email-input" placeholder="your.email@example.com">
+                </div>
+                
+                <button class="continue-btn">Continue with Email</button>
+                
+                <div class="social-options">
+                    <p class="social-options-title">Or continue with</p>
+                    <div class="social-buttons">
+                        <a href="#" class="social-btn">
+                            <span></span>
+                            Github
+                        </a>
+                        <a href="#" class="social-btn">
+                            <span></span>
+                            LinkedIn
+                        </a>
+                        <a href="#" class="social-btn">
+                            <span></span>
+                            Twitter
+                        </a>
+                        <a href="#" class="social-btn">
+                            <span></span>
+                            Google
+                        </a>
+                    </div>
+                </div>
+                
+                <a href="#" class="back-link">← Back to login options</a>
+                
+                <p class="terms-text">
+                    By logging in or signing up using the options above, you agree to TalentLink's 
+                    <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a>.
+                </p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-left">
+            <div class="footer-logo">
+                <div class="footer-logo-icon"></div>
+                <span>© 2025 AfroJobs, Inc., All rights reserved.</span>
+            </div>
+        </div>
+        <div class="footer-right">
+            <a href="#" class="footer-social"></a>
+            <a href="#" class="footer-social"></a>
+            <a href="#" class="footer-social"></a>
+            <a href="#" class="footer-social"></a>
+            <a href="#" class="footer-social"></a>
+        </div>
+    </footer>
+
+    <script>
+        // Form handling
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Login functionality would be implemented here');
+        });
+
+        // Google login
+        document.querySelector('.google-btn').addEventListener('click', function() {
+            alert('Google OAuth would be implemented here');
+        });
+
+        // Continue with email
+        document.querySelector('.continue-btn').addEventListener('click', function() {
+            alert('Email continuation would be implemented here');
+        });
+
+        // Social login buttons
+        document.querySelectorAll('.social-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const service = this.textContent.trim();
+                alert(`${service} OAuth would be implemented here`);
+            });
+        });
+
+        // Search functionality
+        document.querySelector('.search-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                alert(`Searching for: ${this.value}`);
+            }
+        });
+
+        // Sidebar navigation
+        document.querySelectorAll('.sidebar-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+            });
+        });
+
+        // Mobile menu toggle (for responsive design)
+        function toggleMobileMenu() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.style.display = sidebar.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Add mobile menu button for smaller screens
+        if (window.innerWidth <= 768) {
+            const header = document.querySelector('.header');
+            const menuBtn = document.createElement('button');
+            menuBtn.innerHTML = '☰';
+            menuBtn.style.cssText = 'background: none; border: none; font-size: 20px; cursor: pointer;';
+            menuBtn.onclick = toggleMobileMenu;
+            header.appendChild(menuBtn);
+        }
+
+        // Responsive behavior
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                document.querySelector('.sidebar').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

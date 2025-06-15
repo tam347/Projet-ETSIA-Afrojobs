@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tyreel Mbarga - Profil | AfroJobs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #8B4513;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #666;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover, .nav-menu a.active {
+            color: #8B4513;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-input {
+            padding: 0.5rem 2.5rem 0.5rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            width: 300px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #8B4513;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+
+        .notifications {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff4444;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid #8B4513;
+        }
+
+        /* Main Layout */
+        .main-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            height: fit-content;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            text-decoration: none;
+            color: #666;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background: #8B4513;
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .sidebar-menu .icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-type-toggle {
+            display: flex;
+            margin-top: 2rem;
+            background: #f1f3f4;
+            border-radius: 25px;
+            padding: 0.25rem;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 0.5rem;
+            border: none;
+            background: transparent;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .toggle-btn.active {
+            background: #8B4513;
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: grid;
+            gap: 2rem;
+        }
+
+        /* Profile Header */
+        .profile-header {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            display: grid;
+            grid-template-columns: 120px 1fr auto;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid #8B4513;
+            object-fit: cover;
+        }
+
+        .profile-info h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .profile-title {
+            color: #6c5ce7;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .profile-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .profile-location {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #999;
+            margin-bottom: 1rem;
+        }
+
+        .profile-status {
+            color: #00b894;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f1f3f4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: #8B4513;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .edit-profile-btn {
+            padding: 0.75rem 1.5rem;
+            background: #8B4513;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            height: fit-content;
+        }
+
+        .edit-profile-btn:hover {
+            background: #A0522D;
+            transform: translateY(-2px);
+        }
+
+        /* Content Tabs */
+        .content-tabs {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .tab-navigation {
+            display: flex;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-weight: 500;
+            color: #666;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .tab-btn.active {
+            color: #8B4513;
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #8B4513;
+        }
+
+        .tab-content {
+            padding: 2rem;
+        }
+
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        /* About Section */
+        .about-section h2 {
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .about-text {
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .skill-tag {
+            background: #e8f4fd;
+            color: #0984e3;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Quick Stats */
+        .quick-stats {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .quick-stats h3 {
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            border-radius: 8px;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #8B4513;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .stat-sublabel {
+            color: #999;
+            font-size: 0.8rem;
+        }
+
+        /* Recent Activity */
+        .recent-activity {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .activity-list {
+            list-style: none;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #f1f3f4;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .activity-icon.view { background: #e8f4fd; color: #0984e3; }
+        .activity-icon.complete { background: #d1f2eb; color: #00b894; }
+        .activity-icon.message { background: #fef7e8; color: #fdcb6e; }
+        .activity-icon.testimonial { background: #fdf2e8; color: #e17055; }
+        .activity-icon.skill { background: #f3e8ff; color: #a29bfe; }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-text {
+            color: #333;
+            margin-bottom: 0.25rem;
+        }
+
+        .activity-time {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .view-all-link {
+            color: #6c5ce7;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 1rem;
+            display: inline-block;
+        }
+
+        .view-all-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 0 1rem;
+            }
+
+            .search-input {
+                width: 200px;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .main-container {
+                grid-template-columns: 1fr;
+                margin: 1rem auto;
+                padding: 0 1rem;
+            }
+
+            .profile-header {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .profile-avatar {
+                width: 100px;
+                height: 100px;
+                margin: 0 auto;
+            }
+
+            .tab-navigation {
+                flex-wrap: wrap;
+            }
+
+            .tab-btn {
+                min-width: 120px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .search-input {
+                width: 100%;
+            }
+
+            .profile-header {
+                padding: 1rem;
+            }
+
+            .tab-content {
+                padding: 1rem;
+            }
+
+            .quick-stats, .recent-activity {
+                padding: 1rem;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Loading states */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #8B4513;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="#" class="logo">
+                🌍 AfroJobs
+            </a>
+            
+            <nav class="nav-menu">
+                <a href="#" class="active">Dashboard</a>
+                <a href="#">Jobs</a>
+                <a href="#">Talent</a>
+                <a href="#">Messages</a>
+            </nav>
+
+            <div class="header-right">
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="Search profiles, jobs, or companies...">
+                    <span class="search-icon">🔍</span>
+                </div>
+                
+                <div class="notifications">
+                    🔔
+                    <span class="notification-badge">3</span>
+                </div>
+                
+                <img src="https://images.unsplash.com/photo-1494790108755-2616b612c01c?w=100&h=100&fit=crop&crop=face" alt="User Avatar" class="user-avatar">
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar fade-in">
+            <ul class="sidebar-menu">
+                <li><a href="#" class="active"><span class="icon">👤</span> Profile Overview</a></li>
+                <li><a href="#"><span class="icon"></span> My Portfolio</a></li>
+                <li><a href="#"><span class="icon"></span> Skills & Expertise</a></li>
+                <li><a href="#"><span class="icon"></span> Reviews & Testimonials</a></li>
+                <li><a href="#"><span class="icon"></span> Recent Activity</a></li>
+                <li><a href="#"><span class="icon"></span> Settings</a></li>
+                <li><a href="#"><span class="icon"></span> Privacy</a></li>
+                <li><a href="#"><span class="icon"></span> Help & Support</a></li>
+                <li><a href="#"><span class="icon"></span> Logout</a></li>
+            </ul>
+            
+            <div class="user-type-toggle">
+                <button class="toggle-btn active">Freelancer</button>
+                <button class="toggle-btn">Recruiter</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Profile Header -->
+            <section class="profile-header fade-in">
+                <img src="https://images.unsplash.com/photo-1494790108755-2616b612c01c?w=200&h=200&fit=crop&crop=face" alt="Tyreel Mbarga" class="profile-avatar">
+                
+                <div class="profile-info">
+                    <h1>Tyreel Mbarga</h1>
+                    <div class="profile-title">Senior Full-Stack Developer | Freelance</div>
+                    <div class="profile-description">
+                        Passionate about crafting exceptional web experiences. Specializing in scalable web solutions, innovative UI/UX, and impactful product development. Always eager to embrace new challenges and collaborate on meaningful projects.
+                    </div>
+                    <div class="profile-location">Lagos, Nigeria</div>
+                    <div class="profile-status">Open to new projects & collaborations</div>
+                    
+                    <div class="social-links">
+                        <a href="#" title="Portfolio"></a>
+                        <a href="#" title="LinkedIn"></a>
+                        <a href="#" title="GitHub"></a>
+                        <a href="#" title="Twitter"></a>
+                    </div>
+                </div>
+                
+                <button class="edit-profile-btn">Edit Profile</button>
+            </section>
+
+            <!-- Content Tabs -->
+            <section class="content-tabs fade-in">
+                <div class="tab-navigation">
+                    <button class="tab-btn active" data-tab="overview">Overview</button>
+                    <button class="tab-btn" data-tab="portfolio">Portfolio</button>
+                    <button class="tab-btn" data-tab="skills">Skills</button>
+                    <button class="tab-btn" data-tab="reviews">Reviews</button>
+                </div>
+
+                <div class="tab-content">
+                    <!-- Overview Tab -->
+                    <div class="tab-panel active" id="overview">
+                        <div class="about-section">
+                            <h2>About Me</h2>
+                            <div class="about-text">
+                                As a seasoned full-stack developer with 8+ years of experience, I thrive on bringing complex ideas to life through elegant code and intuitive interfaces. My journey in tech has been driven by a passion for continuous learning and a commitment to delivering high-quality, impactful solutions. I specialize in building robust backend systems with Node.js and crafting dynamic, responsive frontends using React and modern CSS frameworks.
+                                <br><br>
+                                <strong>Expertise:</strong> JavaScript, TypeScript, Node.js, React, Next.js, and GraphQL.<br>
+                                <strong>Proficient:</strong> Database design (SQL, NoSQL) and cloud deployment (AWS, Azure).<br>
+                                <strong>Advocate:</strong> Clean code, test-driven development, and agile methodologies.<br>
+                                <strong>Mentoring:</strong> Junior developers and contributing to open-source projects.<br>
+                                <strong>Exploring:</strong> New AI/ML applications in web development.
+                            </div>
+                            
+                            <div class="skills-list">
+                                <span class="skill-tag">JavaScript</span>
+                                <span class="skill-tag">TypeScript</span>
+                                <span class="skill-tag">React</span>
+                                <span class="skill-tag">Node.js</span>
+                                <span class="skill-tag">Next.js</span>
+                                <span class="skill-tag">GraphQL</span>
+                                <span class="skill-tag">AWS</span>
+                                <span class="skill-tag">MongoDB</span>
+                                <span class="skill-tag">PostgreSQL</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Portfolio Tab -->
+                    <div class="tab-panel" id="portfolio">
+                        <h2>My Portfolio</h2>
+                        <p>Portfolio content coming soon...</p>
+                    </div>
+
+                    <!-- Skills Tab -->
+                    <div class="tab-panel" id="skills">
+                        <h2>Skills & Expertise</h2>
+                        <p>Skills breakdown coming soon...</p>
+                    </div>
+
+                    <!-- Reviews Tab -->
+                    <div class="tab-panel" id="reviews">
+                        <h2>Reviews & Testimonials</h2>
+                        <p>Client reviews coming soon...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Stats -->
+            <section class="quick-stats fade-in">
+                <h3>Quick Stats</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">2.5K</div>
+                        <div class="stat-label">Followers</div>
+                        <div class="stat-sublabel">Professionals following this profile</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">345</div>
+                        <div class="stat-label">Following</div>
+                        <div class="stat-sublabel">Profiles followed by this user</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">18</div>
+                        <div class="stat-label">Projects</div>
+                        <div class="stat-sublabel">Completed projects showcased</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Testimonials</div>
+                        <div class="stat-sublabel">Client reviews received</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recent Activity -->
+            <section class="recent-activity fade-in">
+                <h3>Recent Activity</h3>
+                <ul class="activity-list">
+                    <li class="activity-item">
+                        <div class="activity-icon view"></div>
+                        <div class="activity-content">
+                            <div class="activity-text">Your profile was viewed by 5 new recruiters.</div>
+                            <div class="activity-time">2 hours ago</div>
+                        </div>
+                    </li>
+                    <li class="activity-item">
+                        <div class="activity-icon complete"></div>
+                        <div class="activity-content">
+                            <div class="activity-text">Project "Fintech Platform" marked as complete.</div>
+                            <div class="activity-time">1 day ago</div>
+                        </div>
+                    </li>
+                    <li class="activity-item">
+                        <div class="activity-icon message"></div>
+                        <div class="activity-content">
+                            <div class="activity-text">New message from "Global Innovations Inc."</div>
+                            <div class="activity-time">3 days ago</div>
+                        </div>
+                    </li>
+                    <li class="activity-item">
+                        <div class="activity-icon testimonial"></div>
+                        <div class="activity-content">
+                            <div class="activity-text">You received a new 5-star testimonial from HorizonTech.</div>
+                            <div class="activity-time">1 week ago</div>
+                        </div>
+                    </li>
+                    <li class="activity-item">
+                        <div class="activity-icon skill"></div>
+                        <div class="activity-content">
+                            <div class="activity-text">Your skill "React.js" is trending this week.</div>
+                            <div class="activity-time">2 weeks ago</div>
+                        </div>
+                    </li>
+                </ul>
+                <a href="#" class="view-all-link">View all activity →</a>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Tab functionality
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all tabs and panels
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                btn.classList.add('active');
+                
+                // Show corresponding panel
+                const tabId = btn.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // User type toggle
+        document.querySelectorAll('.toggle-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Here you would typically update the UI based on user type
+                console.log('User type changed to:', btn.textContent);
+            });
+        });
+
+        // Edit profile functionality
+        document.querySelector('.edit-profile-btn').addEventListener('click', () => {
+            // Simulate loading state
+            const btn = document.querySelector('.edit-profile-btn');
+            const originalText = btn.textContent;
+            btn.innerHTML = '<span class="loading"></span> Saving...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.disabled = false;
+                alert('Profile editing functionality would be implemented here!');
+            }, 2000);
+        });
+
+        // Search functionality
+        document.querySelector('.search-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const searchTerm = e.target.value.trim();
+                if (searchTerm) {
+                    alert(`Searching for: "${searchTerm}"`);
+                }
+            }
+        });
+
+        // Sidebar navigation
+        document.querySelectorAll('.sidebar-menu a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                document.querySelectorAll('.sidebar-menu a').forEach(l => l.classList.remove('active'));
+                
+                // Add active class to clicked link
+                link.classList.add('active');
+                
+                // Here you would typically navigate to the corresponding page/section
+                console.log('Navigation to:', link.textContent.trim());
+            });
+        });
+
+        // Stats animation on scroll
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px'
+        };
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumbers = entry.target.querySelectorAll('.stat-number');
+                    statNumbers.forEach(stat => {
+                        const finalValue = parseInt(stat.textContent.replace(/[^\d]/g, ''));
+                        animateCounter(stat, 0, finalValue, 2000);
+                    });
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        const statsSection = document.querySelector('.quick-stats');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+
+        // Counter animation function
+        function animateCounter(element, start, end, duration) {
+            let startTime = null;
+            const originalText = element.textContent;
+            
+            function animation(currentTime) {
+                if (startTime === null) startTime = currentTime;
+                const timeElapsed = currentTime - startTime;
+                const progress = Math.min(timeElapsed / duration, 1);
+                
+                const current = Math.floor(progress * (end - start) + start);
+                
+                // Preserve original formatting (K, etc.)
+                if (originalText.includes('K')) {
+                    element.textContent = (current / 1000).toFixed(1) + 'K';
+                } else {
+                    element.textContent = current.toString();
+                }
+                
+                if (progress < 1) {
+                    requestAnimationFrame(animation);
+                }
+            }
+            
+            requestAnimationFrame(animation);
+        }
+
+        // Fade in animations
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = `${Array.from(fadeElements).indexOf(entry.target) * 0.1}s`;
+                    fadeObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElements.forEach(el => fadeObserver.observe(el));
+
+        // Notification functionality
+        document.querySelector('.notifications').addEventListener('click', () => {
+            alert('Notifications:\n• New job match found\n• Profile view');
+        });
+        

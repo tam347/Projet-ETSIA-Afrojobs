@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AfroJobs - Votre Partenaire Carrière Pan-Africaine</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #8B4513;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: #8B4513;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: #8B4513;
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #8B4513;
+            border: 2px solid #8B4513;
+        }
+
+        .btn-outline:hover {
+            background: #8B4513;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139, 69, 19, 0.3);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #8B4513, #A0522D);
+            color: white;
+            box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.4);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #CD853F 100%);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="70" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.2s forwards;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.4s forwards;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            gap: 1rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.6s forwards;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            outline: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .search-btn {
+            padding: 1rem 2rem;
+            background: white;
+            color: #8B4513;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(139, 69, 19, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .step:hover::before {
+            left: 100%;
+        }
+
+        .step:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .step-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #8B4513, #A0522D);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .step p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Why Choose Section */
+        .why-choose {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .feature:hover {
+            background: #f8f9fa;
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #8B4513, #A0522D);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        /* Featured Jobs Section */
+        .featured-jobs {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .jobs-grid {
+            display: grid;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .job-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .job-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .job-info p {
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .job-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+        }
+
+        .testimonial::before {
+            content: '"';
+            font-size: 4rem;
+            color: #8B4513;
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            opacity: 0.3;
+        }
+
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #8B4513, #A0522D);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #8B4513, #A0522D);
+            color: white;
+            padding: 60px 0 20px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .footer-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 2rem;
+            opacity: 0.7;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu, .nav-buttons {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .search-container {
+                flex-direction: column;
+            }
+
+            .job-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .footer-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .hero-content {
+                padding: 0 1rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="#" class="logo">AfroJobs</a>
+            
+            <ul class="nav-menu">
+                <li><a href="#emplois">Emplois</a></li>
+                <li><a href="#entreprises">Entreprises</a></li>
+                <li><a href="#ressources">Ressources</a></li>
+                <li><a href="#apropos">À propos</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+
+            <div class="nav-buttons">
+                <a href="#" class="btn btn-outline">Se connecter</a>
+                <a href="#" class="btn btn-primary">Publier un emploi</a>
+            </div>
+
+            <div class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Votre Partenaire Carrière &<br>Talent Pan-Africain</h1>
+            <p>Connectez-vous aux demandeurs d'emploi, aux ressources et aux employeurs africains. Découvrez les opportunités, développez vos compétences et construisez votre avenir à travers le continent.</p>
+            
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Rechercher un emploi, une entreprise...">
+                <button class="search-btn">Trouvez Votre Prochaine Opportunité</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title fade-in">Comment AfroJobs Fonctionne</h2>
+            
+            <div class="steps">
+                <div class="step fade-in">
+                    <div class="step-icon"></div>
+                    <h3>Créez Votre Profil</h3>
+                    <p>Construisez un profil professionnel complet qui met en valeur vos compétences et votre expérience pour attirer les meilleurs employeurs.</p>
+                </div>
+
+                <div class="step fade-in">
+                    <div class="step-icon"></div>
+                    <h3>Découvrez les Opportunités</h3>
+                    <p>Explorez des milliers d'offres d'emploi et d'opportunités de carrière adaptées à vos compétences et à vos préférences géographiques.</p>
+                </div>
+
+                <div class="step fade-in">
+                    <div class="step-icon"></div>
+                    <h3>Connectez-vous et Grandissez</h3>
+                    <p>Établissez des liens avec des professionnels partageant les mêmes idées et développez votre réseau professionnel dans toute l'Afrique.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Section -->
+    <section class="why-choose">
+        <div class="container">
+            <h2 class="section-title fade-in">Pourquoi Choisir AfroJobs?</h2>
+            
+            <div class="features">
+                <div class="feature fade-in">
+                    <div class="feature-icon"></div>
+                    <h3>Portée Pan-Africaine</h3>
+                    <p>Accédez aux opportunités dans toute l'Afrique avec notre vaste réseau de partenaires multinationaux.</p>
+                </div>
+
+                <div class="feature fade-in">
+                    <div class="feature-icon"></div>
+                    <h3>Croissance de Carrière</h3>
+                    <p>Ressources dédiées au développement professionnel et programmes de mentorat pour accélérer votre progression.</p>
+                </div>
+
+                <div class="feature fade-in">
+                    <div class="feature-icon"></div>
+                    <h3>Communauté de Confiance</h3>
+                    <p>Environnement sécurisé et vérifié pour des connexions professionnelles authentiques et fiables.</p>
+                </div>
+
+                <div class="feature fade-in">
+                    <div class="feature-icon"></div>
+                    <h3>Correspondance Innovante</h3>
+                    <p>Notre algorithme intelligent vous connecte avec les opportunités les plus pertinentes pour votre profil.</p>
+                </div>
+
+                <div class="feature fade-in">
+                    <div class="feature-icon"></div>
+                    <h3>Sécurisé et Fiable</h3>
+                    <p>Plateforme entièrement sécurisée avec protection des données et processus de vérification rigoureux.</p>
+                </div>
+
+                <div class="feature fade-in">
+                    <div class="feature-icon"></div>
+                    <h3>Rémunération Équitable</h3>
+                    <p>Transparence salariale et négociation équitable pour une rémunération juste selon vos compétences.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Jobs Section -->
+    <section class="featured-jobs">
+        <div class="container">
+            <h2 class="section-title fade-in">Opportunités en Vedette</h2>
+            
+            <div class="jobs-grid">
+                <div class="job-card fade-in">
+                    <div class="job-info">
+                        <h3>Développeur Backend Senior</h3>
+                        <p>Design et implémentation de systèmes backend robustes pour des applications à fort trafic. Fort experience avec Node.js et les micro-services est requis.</p>
+                        <div class="job-meta">
+                            <span>Lagos, Nigeria</span>
+                            <span>Temps plein</span>
+                            <span>Il y a 2 heures</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-primary">Postuler</a>
+                </div>
+
+                <div class="job-card fade-in">
+                    <div class="job-info">
+                        <h3>Designer UX/UI Lead</h3>
+                        <p>Diriger une équipe créative dans la conception d'expériences utilisateur exceptionnelles. Portfolio requis avec une experience dans les plateformes mobiles.</p>
+                        <div class="job-meta">
+                            <span>Le Cap, Afrique du Sud</span>
+                            <span>Temps plein</span>
+                            <span>Il y a 1 jour</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-primary">Postuler</a>
+                </div>
+
+                <div class="job-card fade-in">
+                    <div class="job-info">
+                        <h3>Rédacteur de Contenu Freelance</h3>
+                        <p>Produire du contenu de haute qualité, des articles de blog, et du marketing copy pour diverses plateformes. Experience en marketing digital préférée.</p>
+                        <div class="job-meta">
+                            <span>Nairobi, Kenya</span>
+                            <span>Freelance</span>
+                            <span>Il y a 3 jours</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-primary">Postuler</a>
+                </div>
+
+                <div class="job-card fade-in">
+                    <div class="job-info">
+                        <h3>Manager Marketing</h3>
+                        <p>Développer et exécuter des stratégies marketing innovantes pour stimuler la croissance et l'acquisition à travers multiples canaux digitaux.</p>
+                        <div class="job-meta">
+                            <span>Accra, Ghana</span>
+                            <span>Temps plein</span>
+                            <span>Il y a 5 jours</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-primary">Postuler</a>
+                </div>
+
+                <div class="job-card fade-in">
+                    <div class="job-info">
+                        <h3>Analyste de Données (Stagiaire)</h3>
+                        <p>Analyser de grandes quantités de données, effectuer des analyses statistiques et créer des rapports. Excellente opportunité pour débuter en data science.</p>
+                        <div class="job-meta">
+                            <span>Tunis, Tunisie</span>
+                            <span>Stage</span>
+                            <span>Il y a 1 semaine</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-primary">Postuler</a>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="#" class="btn btn-primary">Voir Tous les Emplois</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title fade-in">Ce Que Disent Nos Utilisateurs</h2>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial fade-in">
+                    <div class="testimonial-avatar">A</div>
+                    <p>"AfroJobs m'a connecté avec l'emploi de mes rêves à Lagos. Le processus était fluide et l'équipe support exceptionnelle!"</p>
+                    <strong>Aisha, Nigeria</strong>
+                </div>
+
+                <div class="testimonial fade-in">
+                    <div class="testimonial-avatar">K</div>
+                    <p>"En tant que recruteur, cette plateforme m'a aidé à trouver des talents incroyables à travers l'Afrique. Interface intuitive et fonctionnalités puissantes."</p>
+                    <strong>Kwame, Ghana</strong>
+                </div>
+
+                <div class="testimonial fade-in">
+                    <div class="testimonial-avatar">F</div>
+                    <p>"J'ai trouvé plusieurs opportunités de freelance qui correspondent parfaitement à mes compétences. AfroJobs révolutionne la recherche d'emploi en Afrique."</p>
+                    <strong>Fatou, Sénégal</strong>
+                </div>
+
+                <div class="testimonial fade-in">
+                    <div class="testimonial-avatar">T</div>
+                    <p>"La fonctionnalité de réseautage m'a permis de me connecter avec des professionnels inspirants. Une plateforme qui change la donne!"</p>
+                    <strong>Thabo, Afrique du Sud</strong>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <h2>Renforcez Votre Main-d'œuvre, Développez Votre Carrière</h2>
+            <p>Que vous soyez un recruteur à la recherche de talents africains ou un freelance à la recherche de votre prochaine grande opportunité, AfroJobs est votre plateforme partenaire.</p>
+            
+            <div class="footer-buttons">
+                <a href="#" class="btn btn-outline">Trouver un Emploi (Nouveau!)</a>
+                <a href="#" class="btn btn-primary">Trouver des Freelances Top</a>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 AfroJobs. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileToggle = document.querySelector('.mobile-menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        mobileToggle.addEventListener('click', () => {
+            mobileToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Search functionality
+        const searchInput = document.querySelector('.search-input');
+        const searchBtn = document.querySelector('.search-btn');
+
+        searchBtn.addEventListener('click', () => {
+            const searchTerm = searchInput.value.trim();
+            if (searchTerm) {
+                // Simulate search action
+                searchBtn.textContent = 'Recherche en cours...';
+                searchBtn.style.background = '#666';
+                
+                setTimeout(() => {
+                    searchBtn.textContent = 'Trouvez Votre Prochaine Opportunité';
+                    searchBtn.style.background = 'white';
+                    alert(`Recherche pour: "${searchTerm}"\nFonctionnalité à implémenter avec votre backend.`);
+                }, 1500);
+            }
+        });
+
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchBtn.click();
+            }
+        });
+
+        // Job card interactions
+        document.querySelectorAll('.job-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.borderLeft = '4px solid #8B4513';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.borderLeft = 'none';
+            });
+        });
+
+        // Add mobile menu styles dynamically
+        const style = document.createElement('style');
+        style.textContent = `
+            @media (max-width: 768px) {
+                .mobile-menu-toggle.active span:nth-child(1) {
+                    transform: rotate(45deg) translate(5px, 5px);
+                }
+                .mobile-menu-toggle.active span:nth-child(2) {
+                    opacity: 0;
+                }
+                .mobile-menu-toggle.active span:nth-child(3) {
+                    transform: rotate(-45deg) translate(7px, -6px);
+                }
+                
+                .nav-menu.active {
+                    display: flex;
+                    flex-direction: column;
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    right: 0;
+                    background: white;
+                    padding: 2rem;
+                    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+                    gap: 1rem;
+                }
+                
+                .nav-buttons.active {
+                    display: flex;
+                    flex-direction: column;
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    right: 0;
+                    background: white;
+                    padding: 1rem 2rem;
+                    gap: 1rem;
+                    margin-top: 200px;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Counter animation for statistics (you can add this feature)
+        function animateCounter(element, start, end, duration) {
+            let startTime = null;
+            
+            function animation(currentTime) {
+                if (startTime === null) startTime = currentTime;
+                const timeElapsed = currentTime - startTime;
+                const progress = Math.min(timeElapsed / duration, 1);
+                
+                const current = Math.floor(progress * (end - start) + start);
+                element.textContent = current.toLocaleString();
+                
+                if (progress < 1) {
+                    requestAnimationFrame(animation);
+                }
+            }
+            
+            requestAnimationFrame(animation);
+        }
+
+        // Add loading animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        // Form validation for search
+        function validateSearch(input) {
+            const value = input.trim();
+            if (value.length < 2) {
+                searchInput.style.borderColor = '#ff4444';
+                return false;
+            }
+            searchInput.style.borderColor = '#ddd';
+            return true;
+        }
+
+        // Add hover effects to buttons
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+                btn.style.transform = 'translateY(-2px) scale(1.02)';
+            });
+            
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Lazy loading for images (if you add images later)
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.classList.remove('lazy');
+                    observer.unobserve(img);
+                }
+            });
+        });
+
+        // Console welcome message
+        console.log('%cBienvenue sur AfroJobs!', 'color: #8B4513; font-size: 20px; font-weight: bold;');
+        console.log('%cSi vous voyez des opportunités d\'amélioration, n\'hésitez pas à contribuer!', 'color: #666; font-size: 14px;');
+    </script>
+</body>
+</html>
