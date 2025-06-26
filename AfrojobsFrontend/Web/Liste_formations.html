@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AfroJobs - Formations</title>
+    <style>
+        /* Styles généraux de base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+            background: #f8f9fa;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #8B4513;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: #8B4513;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: #8B4513;
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #8B4513;
+            border: 2px solid #8B4513;
+        }
+
+        .btn-outline:hover {
+            background: #8B4513;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139, 69, 19, 0.3);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #8B4513, #A0522D);
+            color: white;
+            box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.4);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section Formations */
+        .hero-formations {
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #CD853F 100%);
+            color: white;
+            padding: 150px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-formations::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="70" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-formations h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.2s forwards;
+        }
+
+        .hero-formations p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.4s forwards;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            gap: 1rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.6s forwards;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            outline: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .search-btn {
+            padding: 1rem 2rem;
+            background: white;
+            color: #8B4513;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        /* Page de formations */
+        .formations-container {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 2rem;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            font-size: 2.5rem;
+            color: #333;
+            position: relative;
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, #8B4513, #A0522D);
+            border-radius: 2px;
+        }
+
+        .formations-description {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.7;
+        }
+
+        .formations-filters {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-group h3 {
+            margin-bottom: 0.8rem;
+            color: #8B4513;
+            font-size: 1.1rem;
+        }
+
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            background: #f8f9fa;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: linear-gradient(135deg, #8B4513, #A0522D);
+            color: white;
+            border-color: #8B4513;
+        }
+
+        .formations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .formation-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .formation-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .formation-image {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .formation-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #8B4513, #A0522D);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .formation-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .formation-category {
+            color: #8B4513;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .formation-title {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: #333;
+            flex: 1;
+        }
+
+        .formation-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .formation-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .formation-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .formation-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #8B4513;
+            margin-bottom: 1.5rem;
+        }
+
+        .free-badge {
+            background: #4CAF50;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-left: 0.5rem;
+        }
+
+        .formation-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: auto;
+        }
+
+        .formation-actions .btn {
+            flex: 1;
+            text-align: center;
+        }
+
+        .formation-instructor {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+        }
+
+        .instructor-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .instructor-info h4 {
+            font-size: 0.95rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .instructor-info p {
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        .empty-formations {
+            text-align: center;
+            padding: 3rem;
+            grid-column: 1 / -1;
+            color: #777;
+        }
+
+        .empty-formations svg {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 1.5rem;
+            opacity: 0.3;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+            gap: 0.5rem;
+        }
+
+        .pagination-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .pagination-btn:hover, .pagination-btn.active {
+            background: linear-gradient(135deg, #8B4513, #A0522D);
+            color: white;
+            border-color: #8B4513;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #8B4513, #A0522D);
+            color: white;
+            padding: 60px 0 20px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .footer-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 2rem;
+            opacity: 0.7;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu, .nav-buttons {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .hero-formations h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-formations p {
+                font-size: 1.1rem;
+            }
+
+            .search-container {
+                flex-direction: column;
+            }
+            
+            .formations-filters {
+                flex-direction: column;
+            }
+            
+            .formations-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+            
+            .hero-content {
+                padding: 0 1rem;
+            }
+            
+            .formations-container {
+                padding: 0 1rem;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .formation-actions {
+                flex-direction: column;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="#" class="logo">AfroJobs</a>
+            
+            <ul class="nav-menu">
+                <li><a href="#emplois">Emplois</a></li>
+                <li><a href="#entreprises">Entreprises</a></li>
+                <li><a href="#formations">Formations</a></li>
+                <li><a href="#ressources">Ressources</a></li>
+                <li><a href="#apropos">À propos</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+
+            <div class="nav-buttons">
+                <a href="#" class="btn btn-outline">Se connecter</a>
+                <a href="#" class="btn btn-primary">Créer un compte</a>
+            </div>
+
+            <div class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section Formations -->
+    <section class="hero-formations">
+        <div class="hero-content">
+            <h1>Développez Vos Compétences</h1>
+            <p>Explorez nos formations pour booster votre carrière et rester compétitif sur le marché du travail panafricain.</p>
+            
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Rechercher une formation, une compétence...">
+                <button class="search-btn">Trouver une Formation</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formations Section -->
+    <section class="formations-container">
+        <h1 class="page-title fade-in">Formations Disponibles</h1>
+        <p class="formations-description fade-in">Accédez à des formations de qualité conçues par des experts pour vous aider à développer vos compétences et à progresser dans votre carrière. Que vous soyez débutant ou professionnel expérimenté, il y a une formation pour vous.</p>
+        
+        <div class="formations-filters fade-in">
+            <div class="filter-group">
+                <h3>Catégories</h3>
+                <div class="filter-options">
+                    <button class="filter-btn active">Toutes</button>
+                    <button class="filter-btn">Développement</button>
+                    <button class="filter-btn">Design</button>
+                    <button class="filter-btn">Marketing</button>
+                    <button class="filter-btn">Gestion</button>
+                    <button class="filter-btn">Langues</button>
+                </div>
+            </div>
+            
+            <div class="filter-group">
+                <h3>Niveau</h3>
+                <div class="filter-options">
+                    <button class="filter-btn">Tous</button>
+                    <button class="filter-btn">Débutant</button>
+                    <button class="filter-btn">Intermédiaire</button>
+                    <button class="filter-btn">Avancé</button>
+                </div>
+            </div>
+            
+            <div class="filter-group">
+                <h3>Tarif</h3>
+                <div class="filter-options">
+                    <button class="filter-btn">Tous</button>
+                    <button class="filter-btn">Gratuit</button>
+                    <button class="filter-btn">Payant</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="formations-grid">
+            <div class="formation-card fade-in">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=200&q=80" alt="Développement Web" class="formation-image">
+                    <span class="formation-badge">Populaire</span>
+                </div>
+                <div class="formation-content">
+                    <span class="formation-category">Développement Web</span>
+                    <h3 class="formation-title">Développeur Fullstack JavaScript</h3>
+                    <p class="formation-description">Maîtrisez le développement web moderne avec JavaScript, Node.js, React et MongoDB pour créer des applications complètes.</p>
+                    
+                    <div class="formation-meta">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
+                                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>
+                            </svg>
+                            60 heures
+                        </span>
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                            </svg>
+                            Intermédiaire
+                        </span>
+                    </div>
+                    
+                    <div class="formation-price">
+                        89 000 FCFA <span class="free-badge">20% DE RÉDUCTION</span>
+                    </div>
+                    
+                    <div class="formation-actions">
+                        <a href="#" class="btn btn-outline">Détails</a>
+                        <a href="#" class="btn btn-primary">S'inscrire</a>
+                    </div>
+                    
+                    <div class="formation-instructor">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Instructeur" class="instructor-avatar">
+                        <div class="instructor-info">
+                            <h4>Mohamed Diop</h4>
+                            <p>Développeur Senior chez TechAfrica</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="formation-card fade-in">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=200&q=80" alt="Design UX/UI" class="formation-image">
+                </div>
+                <div class="formation-content">
+                    <span class="formation-category">Design</span>
+                    <h3 class="formation-title">Design UX/UI Avancé</h3>
+                    <p class="formation-description">Apprenez à concevoir des expériences utilisateur exceptionnelles avec Figma, Adobe XD et les meilleures pratiques du secteur.</p>
+                    
+                    <div class="formation-meta">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
+                                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>
+                            </svg>
+                            45 heures
+                        </span>
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                            </svg>
+                            Avancé
+                        </span>
+                    </div>
+                    
+                    <div class="formation-price">
+                        75 000 FCFA
+                    </div>
+                    
+                    <div class="formation-actions">
+                        <a href="#" class="btn btn-outline">Détails</a>
+                        <a href="#" class="btn btn-primary">S'inscrire</a>
+                    </div>
+                    
+                    <div class="formation-instructor">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Instructeur" class="instructor-avatar">
+                        <div class="instructor-info">
+                            <h4>Aïcha Bello</h4>
+                            <p>Lead Designer chez CreativeLab</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="formation-card fade-in">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=200&q=80" alt="Marketing Digital" class="formation-image">
+                    <span class="formation-badge">Gratuit</span>
+                </div>
+                <div class="formation-content">
+                    <span class="formation-category">Marketing Digital</span>
+                    <h3 class="formation-title">Marketing Digital pour Débutants</h3>
+                    <p class="formation-description">Découvrez les fondamentaux du marketing digital : SEO, réseaux sociaux, email marketing et publicité en ligne.</p>
+                    
+                    <div class="formation-meta">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
+                                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>
+                            </svg>
+                            30 heures
+                        </span>
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                            </svg>
+                            Débutant
+                        </span>
+                    </div>
+                    
+                    <div class="formation-price">
+                        Gratuit
+                    </div>
+                    
+                    <div class="formation-actions">
+                        <a href="#" class="btn btn-outline">Détails</a>
+                        <a href="#" class="btn btn-primary">S'inscrire</a>
+                    </div>
+                    
+                    <div class="formation-instructor">
+                        <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Instructeur" class="instructor-avatar">
+                        <div class="instructor-info">
+                            <h4>Kwame Nkrumah</h4>
+                            <p>Expert en Marketing Digital</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="formation-card fade-in">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=200&q=80" alt="Gestion de projet" class="formation-image">
+                    <span class="formation-badge">Nouveau</span>
+                </div>
+                <div class="formation-content">
+                    <span class="formation-category">Gestion de Projet</span>
+                    <h3 class="formation-title">Gestion Agile avec Scrum</h3>
+                    <p class="formation-description">Devenez Scrum Master certifié et maîtrisez les méthodologies agiles pour mener vos projets à succès.</p>
+                    
+                    <div class="formation-meta">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
+                                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>
+                            </svg>
+                            40 heures
+                        </span>
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                            </svg>
+                            Intermédiaire
+                        </span>
+                    </div>
+                    
+                    <div class="formation-price">
+                        65 000 FCFA
+                    </div>
+                    
+                    <div class="formation-actions">
+                        <a href="#" class="btn btn-outline">Détails</a>
+                        <a href="#" class="btn btn-primary">S'inscrire</a>
+                    </div>
+                    
+                    <div class="formation-instructor">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Instructeur" class="instructor-avatar">
+                        <div class="instructor-info">
+                            <h4>Fatima Diallo</h4>
+                            <p>Scrum Master chez ProjetPlus</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="formation-card fade-in">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=200&q=80" alt="Data Science" class="formation-image">
+                </div>
+                <div class="formation-content">
+                    <span class="formation-category">Data Science</span>
+                    <h3 class="formation-title">Data Science avec Python</h3>
+                    <p class="formation-description">Apprenez à analyser et visualiser des données avec Python, Pandas, NumPy et Matplotlib pour prendre des décisions éclairées.</p>
+                    
+                    <div class="formation-meta">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
+                                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>
+                            </svg>
+                            70 heures
+                        </span>
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                            </svg>
+                            Avancé
+                        </span>
+                    </div>
+                    
+                    <div class="formation-price">
+                        99 000 FCFA
+                    </div>
+                    
+                    <div class="formation-actions">
+                        <a href="#" class="btn btn-outline">Détails</a>
+                        <a href="#" class="btn btn-primary">S'inscrire</a>
+                    </div>
+                    
+                    <div class="formation-instructor">
+                        <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="Instructeur" class="instructor-avatar">
+                        <div class="instructor-info">
+                            <h4>Samuel Eze</h4>
+                            <p>Data Scientist chez DataAfrik</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="formation-card fade-in">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=200&q=80" alt="Anglais des affaires" class="formation-image">
+                    <span class="formation-badge">Gratuit</span>
+                </div>
+                <div class="formation-content">
+                    <span class="formation-category">Langues</span>
+                    <h3 class="formation-title">Anglais des Affaires</h3>
+                    <p class="formation-description">Améliorez votre anglais professionnel pour communiquer efficacement dans le monde des affaires international.</p>
+                    
+                    <div class="formation-meta">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
+                                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>
+                            </svg>
+                            50 heures
+                        </span>
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                            </svg>
+                            Tous niveaux
+                        </span>
+                    </div>
+                    
+                    <div class="formation-price">
+                        Gratuit
+                    </div>
+                    
+                    <div class="formation-actions">
+                        <a href="#" class="btn btn-outline">Détails</a>
+                        <a href="#" class="btn btn-primary">S'inscrire</a>
+                    </div>
+                    
+                    <div class="formation-instructor">
+                        <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Instructeur" class="instructor-avatar">
+                        <div class="instructor-info">
+                            <h4>Grace Ofori</h4>
+                            <p>Professeure d'anglais certifiée</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pagination fade-in">
+            <div class="pagination-btn">1</div>
+            <div class="pagination-btn">2</div>
+            <div class="pagination-btn">3</div>
+            <div class="pagination-btn active">4</div>
+            <div class="pagination-btn">5</div>
+            <div class="pagination-btn">Suivant</div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+                  <div class="footer-bottom">
+                <p>&copy; 2025 AfroJobs. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileToggle = document.querySelector('.mobile-menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        mobileToggle.addEventListener('click', () => {
+            mobileToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Filter functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Filter logic would go here
+                // For demo, we'll just log the action
+                console.log('Filter applied:', btn.textContent);
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.querySelector('.search-input');
+        const searchBtn = document.querySelector('.search-btn');
+
+        searchBtn.addEventListener('click', () => {
+            const searchTerm = searchInput.value.trim();
+            if (searchTerm) {
+                searchBtn.textContent = 'Recherche...';
+                searchBtn.disabled = true;
+                
+                setTimeout(() => {
+                    alert(`Recherche pour: "${searchTerm}"\nFonctionnalité à implémenter avec votre backend.`);
+                    searchBtn.textContent = 'Trouver une Formation';
+                    searchBtn.disabled = false;
+                }, 1500);
+            }
+        });
+
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchBtn.click();
+            }
+        });
+
+        // Pagination
+        document.querySelectorAll('.pagination-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.pagination-btn').forEach(b => b.classList.remove('active'));
+                
+                if (!btn.textContent.includes('Suivant')) {
+                    btn.classList.add('active');
+                }
+            });
+        });
+
+        // Add mobile menu styles dynamically
+        const style = document.createElement('style');
+        style.textContent = `
+            @media (max-width: 768px) {
+                .mobile-menu-toggle.active span:nth-child(1) {
+                    transform: rotate(45deg) translate(5px, 5px);
+                }
+                .mobile-menu-toggle.active span:nth-child(2) {
+                    opacity: 0;
+                }
+                .mobile-menu-toggle.active span:nth-child(3) {
+                    transform: rotate(-45deg) translate(7px, -6px);
+                }
+                
+                .nav-menu.active {
+                    display: flex;
+                    flex-direction: column;
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    right: 0;
+                    background: white;
+                    padding: 2rem;
+                    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+                    gap: 1rem;
+                }
+                
+                .nav-buttons.active {
+                    display: flex;
+                    flex-direction: column;
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    right: 0;
+                    background: white;
+                    padding: 1rem 2rem;
+                    gap: 1rem;
+                    margin-top: 200px;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
